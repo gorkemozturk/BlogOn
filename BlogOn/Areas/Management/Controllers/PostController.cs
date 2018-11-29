@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using BlogOn.Data;
+using BlogOn.Models;
 using BlogOn.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace BlogOn.Areas.Management.Controllers
 {
@@ -18,12 +21,113 @@ namespace BlogOn.Areas.Management.Controllers
 
         public PostController(ApplicationDbContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Posts.ToListAsync());
+            return View(await _context.Posts.Include(p => p.User).ToListAsync());
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Post post)
+        {
+            if (!ModelState.IsValid)
+                return View(post);
+
+            var identity = (ClaimsIdentity)this.User.Identity;
+            var claim = identity.FindFirst(ClaimTypes.NameIdentifier);
+
+            post.UserID = claim.Value;
+            post.CreatedAt = DateTime.Now;
+
+            try
+            {
+                _context.Posts.Add(post);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", e + ": An error occurred.");
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            Post post = await _context.Posts.FindAsync(id);
+
+            if (post == null)
+                return NotFound();
+
+            return View(post);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Body")] Post post)
+        {
+            if (id != post.ID)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return View(post);
+
+            try
+            {
+                _context.Update(post);
+                _context.Entry(post).Property("CreatedAt").IsModified = false;
+                _context.Entry(post).Property("UserID").IsModified = false;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", e + ": An error occurred."); 
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            Post post = await _context.Posts.FindAsync(id);
+
+            if (post == null)
+                return NotFound();
+
+            return View(post);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            Post post = await _context.Posts.FindAsync(id);
+
+            try
+            {
+                _context.Remove(post);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", e + ": An error occurred.");
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
