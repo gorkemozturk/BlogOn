@@ -10,4 +10,14 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\management\vendor\%40fortawesome\fontawesome-free\less\" />
+    <Folder Include="wwwroot\assets\management\vendor\%40fortawesome\fontawesome-free\scss\" />
+    <Folder Include="wwwroot\assets\management\vendor\anchor-js\docs\" />
+    <Folder Include="wwwroot\assets\management\vendor\anchor-js\test\" />
+    <Folder Include="wwwroot\assets\management\vendor\chart.js\dist\docs\" />
+    <Folder Include="wwwroot\assets\management\vendor\holderjs\src\" />
+    <Folder Include="wwwroot\assets\management\vendor\holderjs\test\" />
+  </ItemGroup>
+
 </Project>
