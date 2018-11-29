@@ -1,5 +1,4 @@
-﻿@model BlogOn.Models.Post
-
+﻿@model BlogOn.Models.ViewModels.PostViewModel
 <!-- Page Header -->
 <header class="masthead">
     <div class="overlay"></div>
@@ -7,11 +6,11 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="post-heading">
-                    <h1>@Html.DisplayFor(model => Model.Title)</h1>
+                    <h1>@Html.DisplayFor(model => Model.Post.Title)</h1>
                     <span style="font-style: normal" class="meta">
                         Posted by
-                        <a href="#">@Model.User.FullName()</a>
-                        on @Model.CreatedAt.ToShortDateString()
+                        <a href="#">@Model.Post.User.FullName()</a>
+                        on @Model.Post.CreatedAt.ToShortDateString()
                     </span>
                 </div>
             </div>
@@ -25,10 +24,56 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <p>
-                    @Html.DisplayFor(model => Model.Body)
+                    @Html.DisplayFor(model => Model.Post.Body)
                 </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div id="dvItems" style="font-size:24px;">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <form asp-antiforgery="true" id="commentForm">
+                    <div class="form-group">
+                        <textarea id="text" style="border-radius: 0" class="form-control" rows="3"></textarea>
+                    </div>
+                    <button id="submit" type="submit" class="btn btn-primary">Leave a Comment</button>
+                </form>
             </div>
         </div>
     </div>
 </article>
 
+@section Scripts
+    {
+    <script>
+        $(function () {
+            var form = $('#commentForm');
+            form.submit(function () {
+                var form = $(this);
+                var comment = { Body: $('#text').val(), PostID: @Model.Post.ID };
+                var json = JSON.stringify(comment);
+
+                $.ajax({
+                    url: '/api/comments',
+                    type: 'POST',
+                    data: json,
+                    cache: false,
+                    dataType: 'text',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        alert("Your comment has submitted successfully.");
+                    },
+                    error: function (data) {
+                        alert("error");
+                    }
+                });
+
+                return false;
+            });
+        });
+    </script>
+}

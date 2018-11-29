@@ -1,4 +1,4 @@
-﻿@model BlogOn.ViewModels.Account.RegisterViewModel
+﻿@model BlogOn.Models.ViewModels.Account.RegisterViewModel
 @{
     Layout = null;
 }
@@ -59,7 +59,19 @@
                             <div class="text-center text-muted mb-4">
                                 <small>Or sign up with credentials</small>
                             </div>
-                            <form role="form" asp-action="Login" asp-controller="Account">
+                            <form asp-antiforgery="true" role="form" asp-action="Register" asp-controller="Account">
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-alternative">
+                                        <input class="form-control" placeholder="First Name" asp-for="FirstName">
+                                    </div>
+                                    <span class="text-danger" asp-validation-for="FirstName"></span>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-alternative">
+                                        <input class="form-control" placeholder="Last Name" asp-for="LastName">
+                                    </div>
+                                    <span class="text-danger" asp-validation-for="LastName"></span>
+                                </div>
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
@@ -83,7 +95,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                         </div>
-                                        <input class="form-control" placeholder="Confirm Password" asp-for="ConfirmPassword">
+                                        <input class="form-control" type="password" placeholder="Confirm Password" asp-for="ConfirmPassword">
                                     </div>
                                     <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
                                 </div>

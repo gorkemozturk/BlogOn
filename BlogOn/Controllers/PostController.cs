@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlogOn.Data;
 using BlogOn.Models;
+using BlogOn.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,9 +25,13 @@ namespace BlogOn.Controllers
             if (id == null || month == null || year == null || slug == null)
                 return NotFound();
 
-            Post post = await _context.Posts.Include(p => p.User).FirstOrDefaultAsync(p => p.ID == id);
+            PostViewModel model = new PostViewModel()
+            {
+                Post =  await _context.Posts.Include(p => p.User).FirstOrDefaultAsync(p => p.ID == id),
+                Comment = new Comment()
+        };
 
-            return View(post);
+            return View(model);
         }
     }
 }

@@ -94,6 +94,9 @@ namespace BlogOn.Areas.Management.Controllers
             try
             {
                 _context.Update(post);
+                _context.Entry(post).Property("CreatedAt").IsModified = false;
+                _context.Entry(post).Property("Slug").IsModified = false;
+                _context.Entry(post).Property("UserID").IsModified = false;
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)

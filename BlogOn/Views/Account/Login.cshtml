@@ -1,4 +1,4 @@
-﻿@model BlogOn.ViewModels.Account.LoginViewModel
+﻿@model BlogOn.Models.ViewModels.Account.LoginViewModel
 @{
     Layout = null;
 }
@@ -59,7 +59,7 @@
                             <div class="text-center text-muted mb-4">
                                 <small>Or sign in with credentials</small>
                             </div>
-                            <form role="form" asp-action="Login" asp-controller="Account">
+                            <form asp-antiforgery="true" role="form" asp-action="Login" asp-controller="Account">
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">

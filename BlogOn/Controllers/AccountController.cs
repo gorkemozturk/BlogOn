@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlogOn.Data;
 using BlogOn.Models;
+using BlogOn.Models.ViewModels.Account;
 using BlogOn.Utilities;
-using BlogOn.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +40,8 @@ namespace BlogOn.Controllers
 
             var user = new ApplicationUser()
             {
+                FirstName = registration.FirstName,
+                LastName = registration.LastName,
                 UserName = registration.Email,
                 Email = registration.Email,
                 CreatedAt = DateTime.Now
