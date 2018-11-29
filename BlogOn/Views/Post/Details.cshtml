@@ -1,0 +1,34 @@
+﻿@model BlogOn.Models.Post
+
+<!-- Page Header -->
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-heading">
+                    <h1>@Html.DisplayFor(model => Model.Title)</h1>
+                    <span style="font-style: normal" class="meta">
+                        Posted by
+                        <a href="#">@Model.User.FullName()</a>
+                        on @Model.CreatedAt.ToShortDateString()
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <p>
+                    @Html.DisplayFor(model => Model.Body)
+                </p>
+            </div>
+        </div>
+    </div>
+</article>
+

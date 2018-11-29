@@ -24,10 +24,10 @@
                         <span class="text-danger" asp-validation-for="Body"></span>
                     </div>
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input">
-                        <label class="form-check-label" for="exampleCheck1">Publish</label>
+                        <input type="checkbox" asp-for="IsActive" class="form-check-input">
+                        <label class="form-check-label" asp-for="IsActive">Active</label>
                     </div>
-                    <button asp-route-id="@Model.ID" type="submit" class="btn btn-primary">EDIT</button>
+                    <button asp-route-id="@Model.ID" type="submit" class="btn btn-primary">Update</button>
                     <a asp-action="Index" class="btn btn-default">BACK TO LIST</a>
                 </form>
             </div>

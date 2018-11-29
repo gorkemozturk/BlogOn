@@ -23,6 +23,7 @@
                                 <th scope="col">@Html.DisplayNameFor(model => model.ID)</th>
                                 <th scope="col">@Html.DisplayNameFor(model => model.Title)</th>
                                 <th scope="col">@Html.DisplayNameFor(model => model.UserID)</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.IsActive)</th>
                                 <th scope="col">@Html.DisplayNameFor(model => model.CreatedAt)</th>
                                 <th scope="col"></th>
                             </tr>
@@ -34,6 +35,21 @@
                                 <th>@Html.DisplayFor(model => item.ID)</th>
                                 <th>@Html.DisplayFor(model => item.Title)</th>
                                 <th>@item.User.FullName()</th>
+                                <th>
+                                    @if (@item.IsActive == true)
+                                    {
+                                        <span class="badge badge-dot mr-4">
+                                            <i class="bg-success"></i> Active
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-dot mr-4">
+                                            <i class="bg-warning"></i> Pending
+                                        </span>
+                                    }
+
+                                </th>
                                 <th>@item.User.CreatedAt.ToLongDateString()</th>
                                 <td class="text-right">
                                     <partial name="_ActionButtonsPartial" model="item.ID">

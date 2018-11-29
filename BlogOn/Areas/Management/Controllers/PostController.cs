@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BlogOn.Data;
 using BlogOn.Models;
@@ -44,8 +45,15 @@ namespace BlogOn.Areas.Management.Controllers
             var identity = (ClaimsIdentity)this.User.Identity;
             var claim = identity.FindFirst(ClaimTypes.NameIdentifier);
 
+            var slug = post.Title.ToLower();
+
+            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+            slug = Regex.Replace(slug, @"\s+", " ").Trim();
+            slug = Regex.Replace(slug, @"\s", "-");
+
             post.UserID = claim.Value;
             post.CreatedAt = DateTime.Now;
+            post.Slug = slug;
 
             try
             {
@@ -75,7 +83,7 @@ namespace BlogOn.Areas.Management.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Body")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Body,IsActive")] Post post)
         {
             if (id != post.ID)
                 return NotFound();
@@ -86,8 +94,6 @@ namespace BlogOn.Areas.Management.Controllers
             try
             {
                 _context.Update(post);
-                _context.Entry(post).Property("CreatedAt").IsModified = false;
-                _context.Entry(post).Property("UserID").IsModified = false;
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)
