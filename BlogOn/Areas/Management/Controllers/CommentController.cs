@@ -24,7 +24,7 @@ namespace BlogOn.Areas.Management.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Comments.Include(p => p.User).OrderByDescending(p => p.CreatedAt).ToListAsync());
+            return View(await _context.Comments.Include(p => p.User).Include(p => p.Post).OrderByDescending(p => p.CreatedAt).ToListAsync());
         }
 
         public async Task<IActionResult> Edit(int? id)
