@@ -1,0 +1,47 @@
+﻿@model BlogOn.Models.Category
+@{
+    ViewData["Title"] = "CREATE A NEW CATEGORY";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div style="border-radius: 2px" class="card">
+            <div class="card-header">
+                <h6 class="title">@ViewData["Title"]</h6>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-action="Create" asp-antiforgery="true">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Name"></label>
+                                <input class="form-control" asp-for="Name" autocomplete="off">
+                                <span class="text-danger" asp-validation-for="Name"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="IsActive">
+                                <label class="form-check-label" asp-for="IsActive"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                            <a asp-action="Index" class="btn btn-default">Back to List</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+}

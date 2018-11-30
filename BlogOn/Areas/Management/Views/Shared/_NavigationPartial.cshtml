@@ -1,0 +1,39 @@
+﻿<ul class="nav">
+    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")">
+        <a asp-action="Index" asp-controller="Home">
+            <i class="nc-icon nc-bank"></i>
+            <p>Dashboard</p>
+        </a>
+    </li>
+    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Post" ? "active" : "")">
+        <a asp-action="Index" asp-controller="Post">
+            <i class="nc-icon nc-send"></i>
+            <p>Posts</p>
+        </a>
+    </li>
+    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Comment" ? "active" : "")">
+        <a asp-action="Index" asp-controller="Comment">
+            <i class="nc-icon nc-chat-33"></i>
+            <p>Comments</p>
+        </a>
+    </li>
+    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Category" ? "active" : "")">
+        <a asp-action="Index" asp-controller="Category">
+            <i class="nc-icon nc-bullet-list-67"></i>
+            <p>Categories</p>
+        </a>
+    </li>
+    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Tag" ? "active" : "")">
+        <a asp-action="Index" asp-controller="Tag">
+            <i class="nc-icon nc-tag-content"></i>
+            <p>Tags</p>
+        </a>
+    </li>
+    <li class="active-pro">
+        <a href="javascript: $('#logout').submit()">
+            <i class="nc-icon nc-button-power"></i>
+            <p>Logout</p>
+        </a>
+    </li>
+    <form asp-antiforgery="true" id="logout" action="@Url.Action("Logout", "Account", new { area = "" })" method="post"></form>
+</ul>

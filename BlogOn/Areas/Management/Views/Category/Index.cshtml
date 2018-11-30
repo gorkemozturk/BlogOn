@@ -1,11 +1,16 @@
-﻿@model IEnumerable<BlogOn.Models.Comment>
+﻿@model IEnumerable<BlogOn.Models.Category>
 @{
-    ViewData["Title"] = "ALL BLOG COMMENTS";
+    ViewData["Title"] = "ALL CATEGORIES";
 }
 
 <div class="row">
     <div class="col-md-12">
-        <div style="border-radius: 2px" class="card">
+        <a asp-action="Create" class="btn pull-right btn-primary">
+            <span class="nc-icon nc-simple-add"></span>
+            Create a New Resource
+        </a>
+        <div class="clearfix"></div>
+        <div style="border-radius: 2px;" class="card">
             <div class="card-header">
                 <h6 class="title">@ViewData["Title"]</h6>
             </div>
@@ -17,9 +22,7 @@
                             <thead class=" text-primary">
                                 <tr>
                                     <th scope="col">@Html.DisplayNameFor(model => model.ID)</th>
-                                    <th scope="col">@Html.DisplayNameFor(model => model.Body)</th>
-                                    <th scope="col">@Html.DisplayNameFor(model => model.PostID)</th>
-                                    <th scope="col">@Html.DisplayNameFor(model => model.UserID)</th>
+                                    <th scope="col">@Html.DisplayNameFor(model => model.Name)</th>
                                     <th scope="col">@Html.DisplayNameFor(model => model.IsActive)</th>
                                     <th scope="col">@Html.DisplayNameFor(model => model.CreatedAt)</th>
                                     <th scope="col"></th>
@@ -30,19 +33,7 @@
                                 {
                                     <tr>
                                         <td>@Html.DisplayFor(model => item.ID)</td>
-                                        <td>@if (@item.Body.Length > 50) { @item.Body.Substring(0, 50) @Html.Raw("...") } else { @item.Body}</td>
-                                        <td>
-                                            <a asp-action="Details" 
-                                                asp-controller="Post" 
-                                                asp-area="" 
-                                                asp-route-id="@item.Post.ID" 
-                                                asp-route-month="@item.CreatedAt.Month" 
-                                                asp-route-year="@item.Post.CreatedAt.Year" 
-                                                asp-route-slug="@item.Post.Slug">
-                                                Visit the Post
-                                            </a>
-                                        </td>
-                                        <td>@item.User.FullName()</td>
+                                        <td>@item.Name</td>
                                         <td>
                                             @if (@item.IsActive == true)
                                             {
