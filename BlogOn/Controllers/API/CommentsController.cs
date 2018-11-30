@@ -51,6 +51,7 @@ namespace BlogOn.Controllers.API
 
             comment.UserID = claim.Value;
             comment.CreatedAt = DateTime.Now;
+            comment.IsActive = false;
 
             _context.Comments.Add(comment);
             _context.SaveChanges();

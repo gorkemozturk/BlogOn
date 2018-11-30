@@ -91,17 +91,24 @@ namespace BlogOn.Areas.Management.Controllers
             if (!ModelState.IsValid)
                 return View(post);
 
+            var slug = post.Title.ToLower();
+
+            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+            slug = Regex.Replace(slug, @"\s+", " ").Trim();
+            slug = Regex.Replace(slug, @"\s", "-");
+
+            post.Slug = slug;
+
             try
             {
                 _context.Update(post);
                 _context.Entry(post).Property("CreatedAt").IsModified = false;
-                _context.Entry(post).Property("Slug").IsModified = false;
                 _context.Entry(post).Property("UserID").IsModified = false;
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("", e + ": An error occurred."); 
+                ModelState.AddModelError("", e + ": An error occurred.");
             }
 
             return RedirectToAction(nameof(Index));
@@ -128,7 +135,7 @@ namespace BlogOn.Areas.Management.Controllers
 
             try
             {
-                _context.Remove(post);
+                _context.Posts.Remove(post);
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)

@@ -58,9 +58,11 @@
                 <h1>Leave a Comment</h1>
                 @if (!User.Identity.IsAuthenticated)
                 {
-                    <div style="border-radius: 0" class="alert alert-primary" role="alert">
-                        You have to sign in to write a comment.
-                    </div>
+                    <p>
+                        <div style="border-radius: 0" class="alert alert-primary" role="alert">
+                            You have to sign in to write a comment.
+                        </div>
+                    </p>
                 }
                 else
                 {
@@ -100,7 +102,7 @@
                         alert("Your comment has submitted successfully.");
                     },
                     error: function (data) {
-                        alert("error");
+                        alert("You have to enter a comment to submit it.");
                     }
                 });
 

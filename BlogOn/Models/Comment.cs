@@ -21,6 +21,8 @@ namespace BlogOn.Models
         [Required]
         public string Body { get; set; }
 
+        public bool IsActive { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         [ForeignKey("UserID")]

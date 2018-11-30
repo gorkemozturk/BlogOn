@@ -28,7 +28,7 @@ namespace BlogOn.Controllers
             PostViewModel model = new PostViewModel()
             {
                 Post =  await _context.Posts.Include(p => p.User).FirstOrDefaultAsync(p => p.ID == id),
-                Comments =  await _context.Comments.Include(p => p.User).Where(p => p.PostID == id).ToListAsync(),
+                Comments =  await _context.Comments.Include(c => c.User).Where(c => c.PostID == id).Where(c => c.IsActive == true).ToListAsync(),
                 Comment = new Comment()
         };
 
