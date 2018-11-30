@@ -24,5 +24,15 @@ namespace BlogOn.Services.Management.Dashboard
         {
             return _context.ApplicationUsers.Where(u => u.CreatedAt.Day == DateTime.Now.Day).ToList().Count();
         }
+
+        public int TotalCategories()
+        {
+            return _context.Categories.ToList().Count();
+        }
+
+        public int TotalTags()
+        {
+            return _context.Tags.ToList().Count();
+        }
     }
 }
