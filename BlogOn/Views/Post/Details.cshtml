@@ -1,4 +1,9 @@
 ﻿@model BlogOn.Models.ViewModels.PostViewModel
+
+@{ 
+    ViewData["Title"] = "Post: " + @Model.Post.Title;
+}
+
 <!-- Page Header -->
 <header class="masthead">
     <div class="overlay"></div>
@@ -82,7 +87,7 @@
 </section>
 
 @section Scripts
-{
+    {
     <script language="javascript" type="text/javascript">
         $(function () {
             var form = $('#commentForm');

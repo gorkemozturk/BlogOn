@@ -16,13 +16,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\assets\management\vendor\%40fortawesome\fontawesome-free\less\" />
-    <Folder Include="wwwroot\assets\management\vendor\%40fortawesome\fontawesome-free\scss\" />
-    <Folder Include="wwwroot\assets\management\vendor\anchor-js\docs\" />
-    <Folder Include="wwwroot\assets\management\vendor\anchor-js\test\" />
-    <Folder Include="wwwroot\assets\management\vendor\chart.js\dist\docs\" />
-    <Folder Include="wwwroot\assets\management\vendor\holderjs\src\" />
-    <Folder Include="wwwroot\assets\management\vendor\holderjs\test\" />
+    <None Include="wwwroot\assets\management\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\assets\management\css\paper-dashboard.css.map" />
+    <None Include="wwwroot\assets\management\fonts\nucleo-icons.woff2" />
+    <None Include="wwwroot\assets\management\js\core\bootstrap.min.js" />
+    <None Include="wwwroot\assets\management\js\core\jquery.min.js" />
+    <None Include="wwwroot\assets\management\js\core\popper.min.js" />
+    <None Include="wwwroot\assets\management\js\paper-dashboard.js" />
+    <None Include="wwwroot\assets\management\js\paper-dashboard.js.map" />
+    <None Include="wwwroot\assets\management\js\paper-dashboard.min.js" />
+    <None Include="wwwroot\assets\management\js\plugins\bootstrap-notify.js" />
+    <None Include="wwwroot\assets\management\js\plugins\chartjs.min.js" />
+    <None Include="wwwroot\assets\management\js\plugins\perfect-scrollbar.jquery.min.js" />
   </ItemGroup>
 
 </Project>

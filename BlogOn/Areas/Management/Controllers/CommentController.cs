@@ -32,7 +32,7 @@ namespace BlogOn.Areas.Management.Controllers
             if (id == null)
                 return NotFound();
 
-            Comment comment = await _context.Comments.Include(c => c.User).FirstOrDefaultAsync(p => p.ID == id);
+            Comment comment = await _context.Comments.Include(c => c.User).Include(c => c.Post).FirstOrDefaultAsync(p => p.ID == id);
 
             if (comment == null)
                 return NotFound();
@@ -69,7 +69,7 @@ namespace BlogOn.Areas.Management.Controllers
             if (id == null)
                 return NotFound();
 
-            Comment comment = await _context.Comments.Include(c => c.User).FirstOrDefaultAsync(p => p.ID == id);
+            Comment comment = await _context.Comments.Include(c => c.User).Include(c => c.Post).FirstOrDefaultAsync(p => p.ID == id);
 
             if (comment == null)
                 return NotFound();

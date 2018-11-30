@@ -19,10 +19,13 @@ namespace BlogOn.Models
         public int PostID { get; set; }
 
         [Required]
+        [Display(Name = "Comment")]
         public string Body { get; set; }
 
+        [Display(Name = "Status")]
         public bool IsActive { get; set; }
 
+        [Display(Name = "Created At")]
         public DateTime CreatedAt { get; set; }
 
         [ForeignKey("UserID")]

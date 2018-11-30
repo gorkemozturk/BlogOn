@@ -1,32 +1,46 @@
 ﻿@model BlogOn.Models.Post
+@{
+    ViewData["Title"] = "DELETE THE EXISTING POST";
+}
 
 <div class="row">
-    <div class="col">
-        <div class="card shadow">
-            <div class="card-header border-0">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <h3 class="mb-0">DELETE THE EXISTING POST</h3>
-                    </div>
-                </div>
+    <div class="col-md-12">
+        <div style="border-radius: 2px" class="card">
+            <div class="card-header">
+                <h6 class="title">@ViewData["Title"]</h6>
             </div>
-
             <div class="card-body">
-                <form asp-antiforgery="true" asp-action="Edit" method="post">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1" asp-for="Title"></label>
-                        <input readonly class="form-control" asp-for="Title" autocomplete="off">
+                <form method="post" asp-action="Delete" asp-antiforgery="true">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Title"></label>
+                                <input readonly class="form-control" asp-for="Title">
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1" asp-for="Body"></label>
-                        <textarea readonly class="form-control" asp-for="Body" rows="3"></textarea>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Body"></label>
+                                <textarea readonly asp-for="Body" class="form-control textarea"></textarea>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group form-check">
-                        <input disabled type="checkbox" asp-for="IsActive" class="form-check-input">
-                        <label class="form-check-label" asp-for="IsActive">Active</label>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-check">
+                                <input disabled type="checkbox" class="form-check-input" asp-for="IsActive">
+                                <label class="form-check-label" asp-for="IsActive"></label>
+                            </div>
+                        </div>
                     </div>
-                    <button asp-route-id="@Model.ID" type="submit" class="btn btn-danger">DELETE</button>
-                    <a asp-action="Index" class="btn btn-default">BACK TO LIST</a>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button asp-route-id="@Model.ID" type="submit" class="btn btn-danger">Delete</button>
+                            <a asp-action="Index" class="btn btn-default">Back to List</a>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

@@ -27,7 +27,7 @@ namespace BlogOn.Areas.Management.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Posts.Include(p => p.User).ToListAsync());
+            return View(await _context.Posts.Include(p => p.User).OrderByDescending(p => p.CreatedAt).ToListAsync());
         }
 
         public IActionResult Create()
