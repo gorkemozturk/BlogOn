@@ -44,9 +44,7 @@ namespace BlogOn.Controllers.API
         public IActionResult Post([FromBody] Comment comment)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest();
-            }
 
             var identity = (ClaimsIdentity)this.User.Identity;
             var claim = identity.FindFirst(ClaimTypes.NameIdentifier);

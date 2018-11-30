@@ -23,33 +23,65 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
+                <h1>@Html.DisplayFor(model => Model.Post.Title)</h1>
                 <p>
                     @Html.DisplayFor(model => Model.Post.Body)
                 </p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div id="dvItems" style="font-size:24px;">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <form asp-antiforgery="true" id="commentForm">
-                    <div class="form-group">
-                        <textarea id="text" style="border-radius: 0" class="form-control" rows="3"></textarea>
-                    </div>
-                    <button id="submit" type="submit" class="btn btn-primary">Leave a Comment</button>
-                </form>
-            </div>
-        </div>
     </div>
 </article>
 
+<!-- Comments -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <h1>Comments</h1>
+                @foreach (var item in Model.Comments)
+                {
+                    <p>
+                        <strong>@item.User.FullName()</strong> <small>@item.User.CreatedAt</small> <br />
+                        @Html.DisplayFor(comment => item.Body)
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Comment Post -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <h1>Leave a Comment</h1>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div style="border-radius: 0" class="alert alert-primary" role="alert">
+                        You have to sign in to write a comment.
+                    </div>
+                }
+                else
+                {
+                    <p>
+                        <form asp-antiforgery="true" id="commentForm">
+                            <div class="form-group">
+                                <textarea id="text" style="border-radius: 0" class="form-control" rows="3"></textarea>
+                            </div>
+                            <button id="submit" type="submit" class="btn btn-primary">Leave a Comment</button>
+                        </form>
+                    </p>
+                }
+
+            </div>
+        </div>
+    </div>
+</section>
+
 @section Scripts
-    {
-    <script>
+{
+    <script language="javascript" type="text/javascript">
         $(function () {
             var form = $('#commentForm');
             form.submit(function () {
