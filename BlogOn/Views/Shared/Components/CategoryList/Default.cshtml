@@ -1,0 +1,8 @@
+﻿@model IEnumerable<BlogOn.Models.Category>
+
+<ol class="list-unstyled mb-0">
+    @foreach (var item in Model)
+    {
+        <li><a href="#">@Html.DisplayFor(model => item.Name)</a></li>
+    }
+</ol>
