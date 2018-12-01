@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlogOn.Data;
+using BlogOn.Services.Client.Comment;
 using BlogOn.Services.Management.Dashboard;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +32,7 @@ namespace BlogOn
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddTransient<StatisticsService>();
+            services.AddTransient<CommentsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,60 +1,26 @@
 ﻿@model IEnumerable<BlogOn.Models.Post>
 
-@{ 
+@{
     ViewData["Title"] = "Welcome";
 }
 
-<!-- Page Header -->
-<header class="masthead">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="site-heading">
-                    <h1>Clean Blog</h1>
-                    <span class="subheading">A Blog Theme by Start Bootstrap</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+@foreach (var item in Model)
+{
+    <div class="blog-post">
+        <h2 class="blog-post-title"><a >@Html.DisplayFor(model => item.Title)</a></h2>
+        <p class="blog-post-meta">@item.CreatedAt.ToShortDateString() by <a href="#">@item.User.FullName()</a></p>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-            @foreach (var item in Model)
-            {
-                <div class="post-preview">
-                    <a asp-action="Details" asp-controller="Post" asp-route-id="@item.ID" asp-route-month="@item.CreatedAt.Month" asp-route-year="@item.CreatedAt.Year" asp-route-slug="@item.Slug">
-                        <h2 class="post-title">
-                            @Html.DisplayFor(model => item.Title)
-                        </h2>
-                        <h3 class="post-subtitle">
-                            @if (item.Body.Length > 150)
-                            {
-                                @item.Body.Substring(0, 150)
-                                @Html.Raw("...")
-                            }
-                            else
-                            {
-                                @item.Body
-                            }
-                        </h3>
-                    </a>
-                    <p style="font-style: normal" class="post-meta">
-                        Posted by
-                        <a>@item.User.FullName()</a>
-                        on @item.CreatedAt.ToShortDateString()
-                    </p>
-                </div>
-                <hr>
-            }
+        <p>
+            @if (item.Body.Length > 550) { @item.Body.Substring(0, 550) @Html.Raw("...") } else { @item.Body }
+        </p>
 
-            <!-- Pager -->
-            <div class="clearfix">
-                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-            </div>
-        </div>
-    </div>
-</div>
+        <a style="border-radius: 0" class="btn btn-secondary" 
+            asp-action="Details" 
+            asp-controller="Post" 
+            asp-route-id="@item.ID" 
+            asp-route-month="@item.CreatedAt.Month" 
+            asp-route-year="@item.CreatedAt.Year" 
+            asp-route-slug="@item.Slug">Read More
+        </a>
+    </div><!-- /.blog-post -->
+}

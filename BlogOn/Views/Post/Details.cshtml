@@ -1,93 +1,68 @@
 ﻿@model BlogOn.Models.ViewModels.PostViewModel
-
-@{ 
+@using BlogOn.Services.Client.Comment
+@inject CommentsService Stats;
+@{
     ViewData["Title"] = "Post: " + @Model.Post.Title;
 }
 
-<!-- Page Header -->
-<header class="masthead">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="post-heading">
-                    <h1>@Html.DisplayFor(model => Model.Post.Title)</h1>
-                    <span style="font-style: normal" class="meta">
-                        Posted by
-                        <a href="#">@Model.Post.User.FullName()</a>
-                        on @Model.Post.CreatedAt.ToShortDateString()
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+<div class="blog-post">
+    <h2 class="blog-post-title">@Html.DisplayFor(model => Model.Post.Title)</h2>
+    <p class="blog-post-meta">@Model.Post.CreatedAt.ToShortDateString() by <a href="#">@Model.Post.User.FullName()</a></p>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <h1>@Html.DisplayFor(model => Model.Post.Title)</h1>
+    <p>
+        @Model.Post.Body
+    </p>
+</div><!-- /.blog-post -->
+
+<div class="blog-post">
+    <h2>Comments (@Stats.CommentCounts(Model.Post.ID))</h2>
+    <hr />
+    <p>
+        @if (Model.Comments.Count() > 0)
+        {
+            @foreach (var item in Model.Comments)
+            {
                 <p>
-                    @Html.DisplayFor(model => Model.Post.Body)
+                    <strong>@item.User.FullName()</strong> <small>@item.User.CreatedAt</small> <br />
+                    @Html.DisplayFor(comment => item.Body)
                 </p>
+            }
+        }
+        else
+        {
+            <div style="border-radius: 0" class="alert alert-info" role="alert">
+                There are no any comments to show here.
             </div>
-        </div>
-    </div>
-</article>
+        }
+    </p>
 
-<!-- Comments -->
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <h1>Comments</h1>
-                @foreach (var item in Model.Comments)
-                {
-                    <p>
-                        <strong>@item.User.FullName()</strong> <small>@item.User.CreatedAt</small> <br />
-                        @Html.DisplayFor(comment => item.Body)
-                    </p>
-                }
+</div><!-- /.blog-post -->
+
+<div class="blog-post">
+    <h2>Leave a Comment</h2>
+    <hr />
+    <p>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <form asp-antiforgery="true" id="commentForm">
+                <div class="form-group">
+                    <textarea id="text" style="border-radius: 0" class="form-control" rows="3"></textarea>
+                </div>
+                <button style="border-radius: 0" type="submit" class="btn btn-secondary">Submit the Comment</button>
+            </form>
+        }
+        else
+        {
+            <div style="border-radius: 0" class="alert alert-info" role="alert">
+                To submit a comment, you have to sing in the application.
             </div>
-        </div>
-    </div>
-</section>
+        }
 
-<!-- Comment Post -->
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <h1>Leave a Comment</h1>
-                @if (!User.Identity.IsAuthenticated)
-                {
-                    <p>
-                        <div style="border-radius: 0" class="alert alert-primary" role="alert">
-                            You have to sign in to write a comment.
-                        </div>
-                    </p>
-                }
-                else
-                {
-                    <p>
-                        <form asp-antiforgery="true" id="commentForm">
-                            <div class="form-group">
-                                <textarea id="text" style="border-radius: 0" class="form-control" rows="3"></textarea>
-                            </div>
-                            <button id="submit" type="submit" class="btn btn-primary">Leave a Comment</button>
-                        </form>
-                    </p>
-                }
-
-            </div>
-        </div>
-    </div>
-</section>
+    </p>
+</div><!-- /.blog-post -->
 
 @section Scripts
-    {
+{
     <script language="javascript" type="text/javascript">
         $(function () {
             var form = $('#commentForm');
@@ -95,7 +70,6 @@
                 var form = $(this);
                 var comment = { Body: $('#text').val(), PostID: @Model.Post.ID };
                 var json = JSON.stringify(comment);
-
                 $.ajax({
                     url: '/api/comments',
                     type: 'POST',
@@ -110,7 +84,6 @@
                         alert("You have to enter a comment to submit it.");
                     }
                 });
-
                 return false;
             });
         });
