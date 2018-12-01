@@ -1,0 +1,18 @@
+﻿@model BlogOn.Models.Post
+
+<div class="blog-post">
+    <h2 class="blog-post-title"><a>@Html.DisplayFor(model => Model.Title)</a></h2>
+    <p class="blog-post-meta">Created at @Html.DisplayFor(model => Model.CreatedAt) by <a href="#">@Model.User.FullName()</a> | Category: <a href="#">@Html.DisplayFor(model => Model.Category.Name)</a></p>
+
+    <p>@if (Model.Body.Length > 550) { @Model.Body.Substring(0, 550) @Html.Raw("...") } else { @Model.Body }</p>
+
+    <a style="border-radius: 0" class="btn btn-secondary"
+       asp-action="Details"
+       asp-controller="Post"
+       asp-route-id="@Model.ID"
+       asp-route-month="@Model.CreatedAt.Month"
+       asp-route-year="@Model.CreatedAt.Year"
+       asp-route-slug="@Model.Slug">
+        Read More
+    </a>
+</div><!-- /.blog-post -->

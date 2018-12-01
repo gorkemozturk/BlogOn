@@ -27,10 +27,10 @@ namespace BlogOn.Controllers
 
             PostViewModel model = new PostViewModel()
             {
-                Post =  await _context.Posts.Include(p => p.User).FirstOrDefaultAsync(p => p.ID == id),
+                Post =  await _context.Posts.Include(p => p.Category).Include(p => p.User).FirstOrDefaultAsync(p => p.ID == id),
                 Comments =  await _context.Comments.Include(c => c.User).Where(c => c.PostID == id).Where(c => c.IsActive == true).ToListAsync(),
                 Comment = new Comment()
-        };
+            };
 
             return View(model);
         }

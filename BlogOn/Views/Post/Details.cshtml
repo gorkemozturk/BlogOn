@@ -7,7 +7,7 @@
 
 <div class="blog-post">
     <h2 class="blog-post-title">@Html.DisplayFor(model => Model.Post.Title)</h2>
-    <p class="blog-post-meta">@Model.Post.CreatedAt.ToShortDateString() by <a href="#">@Model.Post.User.FullName()</a></p>
+    <p class="blog-post-meta">Created at @Html.DisplayFor(model => Model.Post.CreatedAt) by <a href="#">@Model.Post.User.FullName()</a> | Category: <a href="#">@Html.DisplayFor(model => Model.Post.Category.Name)</a></p>
 
     <p>
         @Model.Post.Body

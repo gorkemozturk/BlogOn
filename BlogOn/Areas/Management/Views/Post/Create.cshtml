@@ -1,4 +1,4 @@
-﻿@model BlogOn.Models.Post
+﻿@model BlogOn.Models.ViewModels.PostCreateViewModel
 @{
     ViewData["Title"] = "CREATE A NEW POST";
 }
@@ -10,30 +10,39 @@
                 <h6 class="title">@ViewData["Title"]</h6>
             </div>
             <div class="card-body">
-                <form method="post" asp-action="Create" asp-antiforgery="true">
+                <form method="post" asp-antiforgery="true">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label asp-for="Title"></label>
-                                <input class="form-control" asp-for="Title" autocomplete="off">
-                                <span class="text-danger" asp-validation-for="Title"></span>
+                                <label asp-for="Post.Title"></label>
+                                <input class="form-control" asp-for="Post.Title" autocomplete="off">
+                                <span class="text-danger" asp-validation-for="Post.Title"></span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label asp-for="Body"></label>
-                                <textarea asp-for="Body" class="form-control textarea"></textarea>
-                                <span class="text-danger" asp-validation-for="Body"></span>
+                                <label asp-for="Post.Body"></label>
+                                <textarea asp-for="Post.Body" class="form-control textarea"></textarea>
+                                <span class="text-danger" asp-validation-for="Post.Body"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Post.CategoryID"></label>
+                                <select asp-for="Post.CategoryID" class="form-control" asp-items="@(new SelectList(Model.Categories, "ID", "Name"))"></select>
+                                <span class="text-danger" asp-validation-for="Post.CategoryID"></span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" asp-for="IsActive">
-                                <label class="form-check-label" asp-for="IsActive"></label>
+                                <input type="checkbox" class="form-check-input" asp-for="Post.IsActive">
+                                <label class="form-check-label" asp-for="Post.IsActive"></label>
                             </div>
                         </div>
                     </div>

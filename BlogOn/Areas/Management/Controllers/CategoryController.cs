@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BlogOn.Data;
 using BlogOn.Models;
@@ -39,7 +40,14 @@ namespace BlogOn.Areas.Management.Controllers
             if (!ModelState.IsValid)
                 return View(category);
 
+            var slug = category.Name.ToLower();
+
+            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+            slug = Regex.Replace(slug, @"\s+", " ").Trim();
+            slug = Regex.Replace(slug, @"\s", "-");
+
             category.CreatedAt = DateTime.Now;
+            category.Slug = slug;
 
             try
             {
@@ -73,6 +81,14 @@ namespace BlogOn.Areas.Management.Controllers
         {
             if (id != category.ID)
                 return NotFound();
+
+            var slug = category.Name.ToLower();
+
+            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+            slug = Regex.Replace(slug, @"\s+", " ").Trim();
+            slug = Regex.Replace(slug, @"\s", "-");
+
+            category.Slug = slug;
 
             try
             {

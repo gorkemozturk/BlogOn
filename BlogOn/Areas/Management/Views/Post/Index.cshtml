@@ -24,6 +24,7 @@
                                     <th scope="col">@Html.DisplayNameFor(model => model.ID)</th>
                                     <th scope="col">@Html.DisplayNameFor(model => model.Title)</th>
                                     <th scope="col">@Html.DisplayNameFor(model => model.Slug)</th>
+                                    <th scope="col">@Html.DisplayNameFor(model => model.CategoryID)</th>
                                     <th scope="col">@Html.DisplayNameFor(model => model.UserID)</th>
                                     <th scope="col">@Html.DisplayNameFor(model => model.IsActive)</th>
                                     <th scope="col">@Html.DisplayNameFor(model => model.CreatedAt)</th>
@@ -37,6 +38,7 @@
                                         <td>@Html.DisplayFor(model => item.ID)</td>
                                         <td>@if (@item.Slug.Length > 50) { @item.Title.Substring(0, 50) @Html.Raw("...") } else { @item.Title }</td>
                                         <td>@if (@item.Slug.Length > 50) { @item.Slug.Substring(0, 50) @Html.Raw("...") } else { @item.Slug }</td>
+                                        <td>@Html.DisplayFor(model => item.Category.Name)</td>
                                         <td>@item.User.FullName()</td>
                                         <td>
                                             @if (@item.IsActive == true)

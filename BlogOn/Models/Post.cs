@@ -14,6 +14,9 @@ namespace BlogOn.Models
         [Display(Name = "User")]
         public string UserID { get; set; }
 
+        [Display(Name = "Category")]
+        public int CategoryID { get; set; }
+
         [Required]
         public string Title { get; set; }
 
@@ -26,6 +29,9 @@ namespace BlogOn.Models
         public bool IsActive { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        [ForeignKey("CategoryID")]
+        public virtual Category Category { get; set; }
 
         [ForeignKey("UserID")]
         public virtual ApplicationUser User { get; set; }

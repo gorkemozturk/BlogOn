@@ -19,7 +19,7 @@ namespace BlogOn.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var posts = await _context.Posts.Include(p => p.User).Where(p => p.IsActive == true).ToListAsync();
+            var posts = await _context.Posts.Include(p => p.Category).Include(p => p.User).Where(p => p.IsActive == true).ToListAsync();
 
             return View(posts);
         }

@@ -4,14 +4,16 @@ using BlogOn.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlogOn.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181201133512_AddForeignKeyToPosts")]
+    partial class AddForeignKeyToPosts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace BlogOn.Migrations
                     b.Property<bool>("IsActive");
 
                     b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<string>("Slug")
                         .IsRequired();
 
                     b.HasKey("ID");
@@ -95,25 +94,6 @@ namespace BlogOn.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("BlogOn.Models.PostTag", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("PostID");
-
-                    b.Property<int>("TagID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PostID");
-
-                    b.HasIndex("TagID");
-
-                    b.ToTable("PostTags");
                 });
 
             modelBuilder.Entity("BlogOn.Models.Tag", b =>
@@ -339,19 +319,6 @@ namespace BlogOn.Migrations
                     b.HasOne("BlogOn.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserID");
-                });
-
-            modelBuilder.Entity("BlogOn.Models.PostTag", b =>
-                {
-                    b.HasOne("BlogOn.Models.Post", "Post")
-                        .WithMany()
-                        .HasForeignKey("PostID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("BlogOn.Models.Tag", "Tag")
-                        .WithMany()
-                        .HasForeignKey("TagID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

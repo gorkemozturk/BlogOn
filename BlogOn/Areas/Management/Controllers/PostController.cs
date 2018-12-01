@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BlogOn.Data;
 using BlogOn.Models;
+using BlogOn.Models.ViewModels;
 using BlogOn.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,37 +28,43 @@ namespace BlogOn.Areas.Management.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Posts.Include(p => p.User).OrderByDescending(p => p.CreatedAt).ToListAsync());
+            return View(await _context.Posts.Include(p => p.Category).Include(p => p.User).OrderByDescending(p => p.CreatedAt).ToListAsync());
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create(PostCreateViewModel model)
         {
-            return View();
+            model = new PostCreateViewModel()
+            {
+                Categories = await _context.Categories.Where(c => c.IsActive == true).ToListAsync(),
+                Post = new Post()
+            };
+
+            return View(model);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName(nameof(Create))]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Post post)
+        public async Task<IActionResult> Store(PostCreateViewModel model)
         {
             if (!ModelState.IsValid)
-                return View(post);
+                return View(model);
 
             var identity = (ClaimsIdentity)this.User.Identity;
             var claim = identity.FindFirst(ClaimTypes.NameIdentifier);
 
-            var slug = post.Title.ToLower();
+            var slug = model.Post.Title.ToLower();
 
             slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
             slug = Regex.Replace(slug, @"\s+", " ").Trim();
             slug = Regex.Replace(slug, @"\s", "-");
 
-            post.UserID = claim.Value;
-            post.CreatedAt = DateTime.Now;
-            post.Slug = slug;
+            model.Post.UserID = claim.Value;
+            model.Post.CreatedAt = DateTime.Now;
+            model.Post.Slug = slug;
 
             try
             {
-                _context.Posts.Add(post);
+                _context.Posts.Add(model.Post);
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)

@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20181129170929_CreateCommentsTable.cs" />
     <Compile Remove="Migrations\20181129170929_CreateCommentsTable.Designer.cs" />
+    <Compile Remove="Migrations\20181201121931_AddForeignKeyToPosts.cs" />
+    <Compile Remove="Migrations\20181201121931_AddForeignKeyToPosts.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
