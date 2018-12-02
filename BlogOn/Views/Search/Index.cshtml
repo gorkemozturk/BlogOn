@@ -1,0 +1,10 @@
+﻿@model IEnumerable<BlogOn.Models.Post>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+@foreach (var item in Model)
+{
+    <partial name="_PostEntryPartial" model="item" />
+}

@@ -1,0 +1,54 @@
+﻿@model BlogOn.Models.ApplicationUser
+@{
+    ViewData["Title"] = "UNLOCK THE USER";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div style="border-radius: 2px" class="card">
+            <div class="card-header">
+                <h6 class="title">@ViewData["Title"]</h6>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-action="Edit" asp-antiforgery="true">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="FirstName"></label>
+                                <input readonly class="form-control" asp-for="FirstName" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="LastName"></label>
+                                <input readonly class="form-control" asp-for="LastName" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input readonly asp-for="Email" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-check">
+                                <input disabled type="checkbox" class="form-check-input" asp-for="IsAuthorized">
+                                <label class="form-check-label" asp-for="IsAuthorized"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button asp-route-id="@Model.Id" type="submit" class="btn btn-primary">Unlock</button>
+                            <a asp-action="Index" class="btn btn-default">Back to List</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

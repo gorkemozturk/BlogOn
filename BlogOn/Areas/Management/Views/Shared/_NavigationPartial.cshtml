@@ -7,8 +7,14 @@
     </li>
     <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Post" ? "active" : "")">
         <a asp-action="Index" asp-controller="Post">
-            <i class="nc-icon nc-send"></i>
+            <i class="nc-icon nc-paper"></i>
             <p>Posts</p>
+        </a>
+    </li>
+    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "User" ? "active" : "")">
+        <a asp-action="Index" asp-controller="User">
+            <i class="nc-icon nc-circle-10"></i>
+            <p>Users</p>
         </a>
     </li>
     <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Comment" ? "active" : "")">

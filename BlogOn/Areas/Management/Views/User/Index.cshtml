@@ -1,0 +1,78 @@
+﻿@model IEnumerable<BlogOn.Models.ApplicationUser>
+@{
+    ViewData["Title"] = "ALL USERS";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <a asp-action="Create" class="btn pull-right btn-primary">
+            <span class="nc-icon nc-simple-add"></span>
+            Create a New Resource
+        </a>
+        <div class="clearfix"></div>
+        <div style="border-radius: 2px;" class="card">
+            <div class="card-header">
+                <h6 class="title">@ViewData["Title"]</h6>
+            </div>
+            <div class="card-body">
+                @if (Model.Count() > 0)
+                {
+                    <div style="overflow: hidden;" class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col">E-Mail</th>
+                                    <th scope="col">Authorized</th>
+                                    <th scope="col">Created At</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="@if (item.LockoutEnd != null || item.LockoutEnd > DateTime.Now) { @Html.Raw("table-warning") }">
+                                        <td>@Html.DisplayFor(model => item.Id)</td>
+                                        <td>@item.FullName()</td>
+                                        <td>@item.Email</td>
+                                        <td>@if (item.IsAuthorized == true) { <div class="text-success">Authorized</div> } else { <div>Not Authorized</div> }</td>
+                                        <td>@Html.DisplayFor(model => item.CreatedAt)</td>
+                                        <td class="text-right">
+                                            @if (item.LockoutEnd != null || item.LockoutEnd > DateTime.Now)
+                                            {
+                                                <a asp-route-id="@item.Id" asp-action="Unlock" class="btn btn-primary btn-icon">
+                                                    <span class="nc-icon nc-lock-circle-open"></span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-route-id="@item.Id" asp-action="Edit" class="btn btn-primary btn-icon">
+                                                    <span class="nc-icon nc-refresh-69"></span>
+                                                </a>
+                                                <a asp-route-id="@item.Id" asp-action="Lockout" class="btn btn-danger btn-icon">
+                                                    <span class="nc-icon nc-lock-circle-open"></span>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info alert-dismissible fade show">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span>
+                            <b> Info - </b> There are no any resources to show here.
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
