@@ -3,64 +3,75 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="blog-post">
-    <h2 class="blog-post-title">@ViewData["Title"]</h2>
-    <p>
-        <form asp-action="Register" asp-controller="Account" asp-antiforgery="true">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <input placeholder="First Name" style="border-radius: 0" class="form-control" asp-for="FirstName" autocomplete="off">
-                        <span class="text-danger" asp-validation-for="FirstName"></span>
+<div class="row">
+    <div class="col-md-6 p-3">
+        <h4>@ViewData["Title"]</h4>
+        <p>
+            <form asp-action="Register" asp-controller="Account" asp-antiforgery="true">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input placeholder="First Name" style="border-radius: 0" class="form-control" asp-for="FirstName" autocomplete="off">
+                            <span class="text-danger" asp-validation-for="FirstName"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <input placeholder="Last Name" style="border-radius: 0" class="form-control" asp-for="LastName" autocomplete="off">
-                        <span class="text-danger" asp-validation-for="LastName"></span>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input placeholder="Last Name" style="border-radius: 0" class="form-control" asp-for="LastName" autocomplete="off">
+                            <span class="text-danger" asp-validation-for="LastName"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <input placeholder="E-Mail" style="border-radius: 0" class="form-control" asp-for="Email" autocomplete="off">
-                        <span class="text-danger" asp-validation-for="Email"></span>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input placeholder="E-Mail" style="border-radius: 0" class="form-control" asp-for="Email" autocomplete="off">
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <input placeholder="Password" style="border-radius: 0" class="form-control" asp-for="Password">
-                        <span class="text-danger" asp-validation-for="Password"></span>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input placeholder="Password" style="border-radius: 0" class="form-control" asp-for="Password">
+                            <span class="text-danger" asp-validation-for="Password"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <input type="password" placeholder="Confirm Password" style="border-radius: 0" class="form-control" asp-for="ConfirmPassword">
-                        <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="password" placeholder="Confirm Password" style="border-radius: 0" class="form-control" asp-for="ConfirmPassword">
+                            <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <button style="border-radius: 0" class="btn btn-secondary btn-block">Register</button>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button style="border-radius: 0" class="btn btn-secondary btn-block">Register</button>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <small>
-                        <a asp-action="Login" asp-controller="Account">Already have and account? Sign in.</a>
-                    </small>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <small>
+                            <a asp-action="Login" asp-controller="Account">Already have and account? Sign in.</a>
+                        </small>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </p>
+            </form>
+        </p>
+    </div>
+    <div class="col-md-6 p-3">
+        <h4>Already have an account?</h4>
+        <p>
+            Do you have aldready an account? Sign in instantly.
+            <p>
+                <a asp-action="Login" asp-controller="Account" style="border-radius: 0" class="btn btn-secondary btn-block">Sign In</a>
+            </p>
+        </p>
+    </div>
 </div>
 
 @section Scripts {

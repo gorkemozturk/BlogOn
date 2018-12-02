@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlogOn.Data;
+using BlogOn.Models.ViewModels;
 using BlogOn.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogOn.Areas.Management.Controllers
 {
@@ -12,9 +15,21 @@ namespace BlogOn.Areas.Management.Controllers
     [Authorize(Roles = StaticEnvironments.Administrator)]
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            DashboardViewModel model = new DashboardViewModel()
+            {
+                Comments = await _context.Comments.Include(c => c.User).Include(c => c.Post).Where(c => c.CreatedAt.Day == DateTime.Now.Day).ToListAsync()
+            };
+
+            return View(model);
         }
     }
 }

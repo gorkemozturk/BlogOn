@@ -52,6 +52,15 @@
                                         </td>
                                         <td>@Html.DisplayFor(model => item.CreatedAt)</td>
                                         <td class="text-right">
+                                            <a class="btn btn-icon btn-default" asp-action="Details"
+                                               asp-controller="Post"
+                                               asp-area=""
+                                               asp-route-id="@item.ID"
+                                               asp-route-month="@item.CreatedAt.Month"
+                                               asp-route-year="@item.CreatedAt.Year"
+                                               asp-route-slug="@item.Slug">
+                                               <span class="nc-icon nc-send"></span>
+                                            </a>
                                             <partial name="_ActionButtonsPartial" model="item.ID">
                                         </td>
                                     </tr>

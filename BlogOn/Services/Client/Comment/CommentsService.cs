@@ -17,7 +17,7 @@ namespace BlogOn.Services.Client.Comment
 
         public int CommentCounts(int id)
         {
-            return _context.Comments.Where(c => c.PostID == id).ToList().Count();
+            return _context.Comments.Where(c => c.PostID == id).Where(c => c.IsActive == true).ToList().Count();
         }
     }
 }

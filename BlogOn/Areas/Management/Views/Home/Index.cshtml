@@ -1,4 +1,5 @@
-﻿@using BlogOn.Services.Management.Dashboard
+﻿@model BlogOn.Models.ViewModels.DashboardViewModel
+@using BlogOn.Services.Management.Dashboard
 @inject StatisticsService Stats;
 @{
     ViewData["Title"] = "Dashboard";
@@ -96,6 +97,84 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                    <i class="fa fa-refresh"></i> Update Now
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div style="border-radius: 2px" class="card">
+            <div class="card-header ">
+                <h5 class="card-title">Daily Comments</h5>
+                <p class="card-category">All daily comments that wrote by users are listed here</p>
+            </div>
+            <div class="card-body">
+                @if (Model.Comments.Count() > 0)
+                {
+                    <div style="overflow: hidden;" class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Body</th>
+                                    <th scope="col">User</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Comments)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(model => item.ID)</td>
+                                        <td>@if (@item.Body.Length > 50) { @item.Body.Substring(0, 50) @Html.Raw("...") } else{ @item.Body }</td>
+                                        <td>@item.User.FullName()</td>
+                                        <td>
+                                            @if (@item.IsActive == true)
+                                            {
+                                                <i class="bg-success"></i> <div class="text-success">Active</div>
+                                            }
+                                            else
+                                            {
+                                                <i class="bg-warning"></i> <div class="text-warning">Pending</div>
+                                            }
+                                        </td>
+                                        <td class="text-right">
+                                            <a class="btn btn-icon btn-default" asp-action="Details"
+                                               asp-controller="Post"
+                                               asp-area=""
+                                               asp-route-id="@item.Post.ID"
+                                               asp-route-month="@item.CreatedAt.Month"
+                                               asp-route-year="@item.Post.CreatedAt.Year"
+                                               asp-route-slug="@item.Post.Slug">
+                                                <span class="nc-icon nc-send"></span>
+                                            </a>
+                                            <partial name="_ActionButtonsPartial" model="item.ID">
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info alert-dismissible fade show">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span>
+                            <b> Info - </b> There are no any resources to show here.
+                        </span>
+                    </div>
+                }
             </div>
             <div class="card-footer ">
                 <hr>
